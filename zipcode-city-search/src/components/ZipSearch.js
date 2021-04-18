@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import axios from 'axios';
 
+
 class ZipSearch extends Component {
     constructor(props) {
         super(props);
@@ -46,17 +47,17 @@ class ZipSearch extends Component {
             table.push(<tr key={-1}><td>No Results</td></tr>);
             return table;
         } else {
-            for(let i = 0; i < currData.length; i++) {
+            for (let i = 0; i < currData.length; i++) {
                 let city = currData[i].LocationText;
                 let state = currData[i].State;
-                let location = currData[i].Lat + ", " + currData[i].Long; 
-                let population = currData[i].EstimatedPopulation 
+                let location = currData[i].Lat + ", " + currData[i].Long;
+                let population = currData[i].EstimatedPopulation
                 let wages = currData[i].TotalWages
                 table.push(
                     <tr key={currData[i].id}>
-                        <td>City: {city}</td> 
+                        <td>City: {city}</td>
                         <td>State: {state}</td>
-                        <td>Location: ({location})</td> 
+                        <td>Location: ({location})</td>
                         <td>Population (estimated) : {population}</td>
                         <td>Total Wages: {wages}</td>
                     </tr>
