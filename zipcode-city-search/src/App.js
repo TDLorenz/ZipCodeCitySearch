@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
 import './App.css';
 import ZipSearch from './components/ZipSearch';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <ZipSearch />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <ZipSearch/>   
+    </div>
+  );
 }
 
 export default App;
