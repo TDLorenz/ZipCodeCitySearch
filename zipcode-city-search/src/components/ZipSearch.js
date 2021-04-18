@@ -1,46 +1,28 @@
 import { Component } from 'react';
 import axios from 'axios';
 
-class SearchAPI extends Component {
+class ZipSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
             apiData: [],
-            pokemon: "",
+            zipCode: "",
             found: false
         }
     }
 
     handleInputChange = (event) => {
-        this.setState({ pokemon: event.target.value });
+        this.setState({ zipCode: event.target.value });
     }
 
-    // handleSearchClick = () => {
-    //     let pokemonName = this.state.pokemon;
-    //     let linkToAPI = 'https://pokeapi.co/api/v2/pokemon/'+pokemonName;
-    //     fetch(linkToAPI)
-    //         .then((response) => {
-    //             if(response.status === 404){
-    //                 return;
-    //             }
-    //             return response.json();
-    //         })
-    //         .then((data) => { //data is response.json()
-    //             this.setState({apiData: data});
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error:', error);
-    //         });
-
-    //}
-
     handleSearchClick = async () => {
-        let pokemonName = this.state.pokemon;
-        let linkToAPI = 'https://pokeapi.co/api/v2/pokemon/' + pokemonName;
+        let zipCodeQuery = this.state.zipCode;
+        let linkToAPI = 'https://ctp-zip-api.herokuapp.com/zip/' + zipCodeQuery;
 
         try {
             let response = await axios.get(linkToAPI);
             this.setState({ apiData: response.data, found: true });
+            console.log(response.data)
         } catch (error) {
             if (error.response) {
                 /*
@@ -64,14 +46,22 @@ class SearchAPI extends Component {
             table.push(<tr key={-1}><td>No Results</td></tr>);
             return table;
         } else {
-            let height = currData.height;
-            let weight = currData.weight;
-            table.push(
-                <tr key={currData.id}>
-                    <td>Height: {height}</td>
-                    <td>Weight: {weight}</td>
-                </tr>
-            );
+            for(let i = 0; i < currData.length; i++) {
+                let city = currData[i].LocationText;
+                let state = currData[i].State;
+                let location = currData[i].Lat + ", " + currData[i].Long; 
+                let population = currData[i].EstimatedPopulation 
+                let wages = currData[i].TotalWages
+                table.push(
+                    <tr key={currData[i].id}>
+                        <td>City: {city}</td> 
+                        <td>State: {state}</td>
+                        <td>Location: ({location})</td> 
+                        <td>Population (estimated) : {population}</td>
+                        <td>Total Wages: {wages}</td>
+                    </tr>
+                );
+            }
             return table;
         }
     }
@@ -80,19 +70,21 @@ class SearchAPI extends Component {
         return (
             <div className="container">
                 <div className="search">
-                    <h3>Search Pokemon:</h3>
-                    <input type="text" value={this.state.pokemon} onChange={this.handleInputChange} placeholder="Enter Pokemon name" />
+                    <h3>Zip Code Search</h3>
+                    <input type="text" value={this.state.zipCode} onChange={this.handleInputChange} placeholder="Try 10016" />
                     <button className="search-button" onClick={this.handleSearchClick}>Search</button>
                 </div>
                 <br />
-                <table id="data">
-                    <tbody>
-                        {this.makeTable()}
-                    </tbody>
-                </table>
+                <div className="table">
+                    <table id="data">
+                        <tbody>
+                            {this.makeTable()}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
 }
 
-export default SearchAPI;
+export default ZipSearch;
