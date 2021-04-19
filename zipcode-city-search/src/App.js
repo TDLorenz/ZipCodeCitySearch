@@ -1,12 +1,25 @@
+import React, { Component, useState } from 'react';
 import './App.css';
 import ZipSearch from './components/ZipSearch';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import NavBar from "./components/NavBar"
+import CitySearch from './components/CitySearch';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+class App extends Component {
+  render(){
   return (
-    <div className="App">
-      <ZipSearch/>   
-    </div>
+    <>
+    <Router>
+    <NavBar/>
+      
+        <Route exact path='/' component={ZipSearch}/>
+        <Route exact path='/CitySearch' component={CitySearch}/>
+      
+      </Router>
+      </>
   );
+  }
 }
 
 export default App;
