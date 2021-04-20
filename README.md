@@ -1,2 +1,0 @@
-# ZipCodeCitySearch
-Assignment 5
