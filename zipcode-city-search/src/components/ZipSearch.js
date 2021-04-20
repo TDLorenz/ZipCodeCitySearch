@@ -1,9 +1,9 @@
 import React, { Component, useState } from 'react';
 
 import axios from 'axios';
-import {Navbar,Nav,NavDropdown} from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import '../App.css';
 
 class ZipSearch extends Component {
     constructor(props) {

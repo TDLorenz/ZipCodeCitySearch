@@ -1,8 +1,9 @@
 import React, { Component, useState } from 'react';
 
 import axios from 'axios';
-import {Navbar,Nav,NavDropdown} from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
 
 class CitySearch extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class CitySearch extends Component {
     }
 
     handleInputChange = (event) => {
-        this.setState({ cityName: event.target.value.toUpperCase()}
+        this.setState({ cityName: event.target.value.toUpperCase() }
         );
     }
 
